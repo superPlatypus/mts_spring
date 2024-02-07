@@ -1,4 +1,4 @@
-package HW_6.Entity;
+package HW_6.entity;
 
 public abstract class Predator extends AbstractAnimal {
     Predator(){

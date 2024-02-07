@@ -1,4 +1,4 @@
-package HW_6.Entity;
+package HW_6.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package HW_6.Factory;
+package HW_6.factory;
 
-import HW_6.Entity.*;
+import HW_6.entity.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

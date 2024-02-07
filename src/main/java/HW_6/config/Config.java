@@ -1,8 +1,8 @@
-package HW_6.Config;
+package HW_6.config;
 
-import HW_6.Bpp.CreateAnimalBeanPostProcessor;
-import HW_6.Service.CreateAnimalService;
-import HW_6.Service.CreateAnimalServiceImpl;
+import HW_6.bpp.CreateAnimalBeanPostProcessor;
+import HW_6.service.CreateAnimalService;
+import HW_6.service.CreateAnimalServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

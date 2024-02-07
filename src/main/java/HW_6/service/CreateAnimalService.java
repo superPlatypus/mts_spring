@@ -1,8 +1,8 @@
-package HW_6.Service;
+package HW_6.service;
 
-import HW_6.Entity.Animal;
-import HW_6.Factory.AnimalFactory;
-import HW_6.Factory.AnimalType;
+import HW_6.entity.Animal;
+import HW_6.factory.AnimalFactory;
+import HW_6.factory.AnimalType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

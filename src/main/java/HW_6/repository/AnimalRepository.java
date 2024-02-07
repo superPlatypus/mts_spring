@@ -1,6 +1,6 @@
-package HW_6.Repository;
+package HW_6.repository;
 
-import HW_6.Entity.Animal;
+import HW_6.entity.Animal;
 
 import java.util.List;
 import java.util.Map;

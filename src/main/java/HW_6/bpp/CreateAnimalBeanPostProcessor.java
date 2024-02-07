@@ -1,7 +1,7 @@
-package HW_6.Bpp;
+package HW_6.bpp;
 
-import HW_6.Service.CreateAnimalService;
-import HW_6.Service.CreateAnimalServiceImpl;
+import HW_6.service.CreateAnimalService;
+import HW_6.service.CreateAnimalServiceImpl;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 public class CreateAnimalBeanPostProcessor implements BeanPostProcessor {

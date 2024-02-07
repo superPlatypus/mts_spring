@@ -1,8 +1,8 @@
 package HW_6;
 
-import HW_6.Config.Config;
-import HW_6.Repository.AnimalRepositoryImpl;
-import HW_6.Service.CreateAnimalService;
+import HW_6.config.Config;
+import HW_6.repository.AnimalRepositoryImpl;
+import HW_6.service.CreateAnimalService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;

@@ -1,7 +1,7 @@
-package HW_6.Repository;
+package HW_6.repository;
 
-import HW_6.Entity.Animal;
-import HW_6.Service.CreateAnimalService;
+import HW_6.entity.Animal;
+import HW_6.service.CreateAnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package HW_6.Factory;
+package HW_6.factory;
 
 public enum AnimalType {
     CAT,
