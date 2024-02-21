@@ -24,5 +24,6 @@ public class Scheduler {
         animalRepository.findLeapYearNames().forEach(System.out::println);
         System.out.println("Animals older then 10:");
         animalRepository.findOlderAnimal(10).forEach(System.out::println);
+        System.out.println("--------------");
     }
 }

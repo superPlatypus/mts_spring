@@ -33,6 +33,9 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     }
 
     public List<Animal> createAnimals(int n){
+        if (n < 0){
+            throw new IllegalArgumentException();
+        }
         List<Animal> animals = new ArrayList<>();
         int i = 0;
         Random random = new Random();

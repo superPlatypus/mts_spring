@@ -1,4 +1,4 @@
-package ru.mts.animalstarter.hw_7.config;
+package ru.mts.animalstarter.hw_7;
 
 
 import org.springframework.context.annotation.Bean;
