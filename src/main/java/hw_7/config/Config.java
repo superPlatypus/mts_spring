@@ -20,6 +20,4 @@ public class Config {
     public AnimalFactory animalFactory(){
         return new AnimalFactory();
     }
-
-
 }

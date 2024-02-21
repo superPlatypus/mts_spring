@@ -70,7 +70,7 @@ public class AnimalFactory {
         Random random = new Random();
         int year = random.nextInt(24) + 2000;
         int month = random.nextInt(12) + 1;
-        int day = random.nextInt(31) + 1; //
+        int day = random.nextInt(28) + 1; //
         return LocalDate.of(year, month, day);
     }
 }
