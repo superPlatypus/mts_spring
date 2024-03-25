@@ -8,9 +8,11 @@ import ru.mts.animalstarter.hw_9.entity.Animal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public interface AnimalRepository {
-
     Map<String, LocalDate> findLeapYearNames();
 
     Map<Animal, Integer> findOlderAnimal(int n);
@@ -24,6 +26,4 @@ public interface AnimalRepository {
     List<Animal> findOldAndExpensive(List<Animal> animals);
 
     List<String> findMinCostAnimals(List<Animal> animals)  throws MinCostCalculationException;
-
-
 }

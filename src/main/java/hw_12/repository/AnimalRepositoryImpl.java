@@ -1,11 +1,10 @@
-package hw_11.repository;
+package hw_12.repository;
 
 
-import hw_11.exception.AverageAgeCalculationException;
-import hw_11.exception.MinCostCalculationException;
-import hw_11.exception.OldAndExpensiveCalculationException;
-import hw_11.exception.OlderAnimalCalculationException;
-import hw_11.repository.AnimalRepository;
+import hw_12.exception.AverageAgeCalculationException;
+import hw_12.exception.MinCostCalculationException;
+import hw_12.exception.OldAndExpensiveCalculationException;
+import hw_12.exception.OlderAnimalCalculationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.mts.animalstarter.hw_9.entity.Animal;
@@ -14,7 +13,6 @@ import ru.mts.animalstarter.hw_9.service.CreateAnimalService;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.charset.MalformedInputException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -23,15 +21,16 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+
 @Repository
 public class AnimalRepositoryImpl implements AnimalRepository {
-    List<Animal> animals = new ArrayList<>();
+    CopyOnWriteArrayList<Animal> animals = new CopyOnWriteArrayList<>();
 
     @Autowired
     CreateAnimalService animalService;
 
     @Override
-    public void findAverageAge(List<Animal> animals){
+    public void findAverageAge(CopyOnWriteArrayList<Animal> animals){
         if (animals == null || animals.isEmpty()) {
             throw new AverageAgeCalculationException("List of animals is null or empty");
         }
@@ -43,7 +42,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
 
     @Override
-    public List<Animal> findOldAndExpensive(List<Animal> animals) {
+    public CopyOnWriteArrayList<Animal> findOldAndExpensive(CopyOnWriteArrayList<Animal> animals) {
         if (animals == null || animals.isEmpty()) {
             throw new OldAndExpensiveCalculationException("List of animals is null or empty");
         }
@@ -56,11 +55,11 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 .filter(animal -> Period.between(animal.getBirthDay(), LocalDate.now()).getYears() > 5)
                 .filter(animal -> animal.getCost().compareTo(averageCost) > 0)
                 .sorted(Comparator.comparing(Animal::getBirthDay))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
     }
 
     @Override
-    public List<String> findMinCostAnimals(List<Animal> animals) throws MinCostCalculationException {
+    public CopyOnWriteArrayList<String> findMinCostAnimals(CopyOnWriteArrayList<Animal> animals) throws MinCostCalculationException {
         if (animals == null) {
             throw new MinCostCalculationException("List is null");
         } else if (animals.size() < 3) {
@@ -71,7 +70,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 .limit(3)
                 .sorted(Comparator.comparing(Animal::getName).reversed())
                 .map(Animal::getName)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
     }
 
     @PostConstruct
@@ -84,36 +83,36 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public Map<String, LocalDate> findLeapYearNames() {
+    public ConcurrentMap<String, LocalDate> findLeapYearNames() {
         return animals.stream()
                 .filter(animal -> animal.getBirthDay().isLeapYear())
-                .collect(Collectors.toMap(Animal::getName, Animal::getBirthDay, (oldValue, newValue) -> oldValue));
+                .collect(Collectors.toConcurrentMap(Animal::getName, Animal::getBirthDay, (oldValue, newValue) -> oldValue));
     }
 
     @Override
-    public Map<Animal, Integer> findOlderAnimal(int n) {
+    public ConcurrentMap<Animal, Integer> findOlderAnimal(int n) {
         if (n < 0){
             throw new OlderAnimalCalculationException("Age is less then 0");
         }
-        Map<Animal, Integer> oldestAnimalsMap = animals.stream()
+        ConcurrentMap<Animal, Integer> oldestAnimalsMap = animals.stream()
                 .filter(animal -> Period.between(animal.getBirthDay(), LocalDate.now()).getYears() > n)
-                .collect(Collectors.toMap(animal -> animal, animal -> Period.between(animal.getBirthDay(), LocalDate.now()).getYears(),  (oldValue, newValue) -> oldValue));
+                .collect(Collectors.toConcurrentMap(animal -> animal, animal -> Period.between(animal.getBirthDay(), LocalDate.now()).getYears(),  (oldValue, newValue) -> oldValue));
         if (!oldestAnimalsMap.isEmpty()) {
             return oldestAnimalsMap;
         } else {
             Animal oldestAnimal = animals.stream()
                     .min(Comparator.comparing(Animal::getBirthDay))
                     .orElseThrow(IllegalArgumentException::new);
-            return Map.of(oldestAnimal, Period.between(oldestAnimal.getBirthDay(), LocalDate.now()).getYears());
+            return new ConcurrentHashMap<>(Map.of(oldestAnimal, Period.between(oldestAnimal.getBirthDay(), LocalDate.now()).getYears()));
         }
     }
 
     @Override
-    public Map<String, List<Animal>> findDuplicate() {
+    public ConcurrentMap<String, List<Animal>> findDuplicate() {
         return animals.stream()
                 .filter(animal -> Collections.frequency(animals, animal) > 1)
                 .skip(1)
-                .collect(Collectors.groupingBy(Animal::getBreed));
+                .collect(Collectors.groupingByConcurrent(Animal::getBreed));
 
     }
 
